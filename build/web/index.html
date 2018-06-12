@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Principal</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header id="top" class="header">
+                <div class="text-vertical-center">
+                    <h1 style="color: #293641">Piolin</h1>
+                    <h3 style="color: #293641">Busca gente, comparte tu vida.</h3>
+                    <br>
+                    <a href="#" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#login-modal">Inicia Sesion</a>
+                    <a href="Registro.jsp" class="btn btn-dark btn-lg">Registrate</a>
+
+                </div>
+        </header>
+ 
+        <img src="logo.png"/>
+        <p>Bienvenido al sistema de administracion de la cafeteria, favor ingrese sus datos</p>
+        <form action="Login" method="post">
+            <input type="text" name="txtcorreo" placeholder="Ingrese su correo" required/>
+            <input type="password" name="txtpassword" placeholder="Inicie su contraseña" required/>
+            <input type="submit" name="login" value="Login"/>
+            
+        </form>
+        
+    </body>
+</html>
