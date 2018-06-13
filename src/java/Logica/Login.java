@@ -53,15 +53,15 @@ public class Login extends HttpServlet {
                 
                 if(r.first()){
                     int id= r.getInt("idusuario");
-                    int edo= r.getInt("estado");
-                    if(id==0){
+                    if(id==-1){
                         response.sendRedirect("index.html?r=Contraseña o correo incorrecto, vuelva a intentarlo");
                     }
                     else{
+                        int edo= r.getInt("estado");
                         HttpSession sesion= request.getSession();
-                        sesion.setAttribute("idusuario", id);
+                        sesion.setAttribute("idusuario",id);
                         if(edo==0)
-                            response.sendRedirect("inicl.jsp");
+                            response.sendRedirect("inicli.jsp");
                         else if (edo==1)
                             response.sendRedirect("inico.jsp");
                         else

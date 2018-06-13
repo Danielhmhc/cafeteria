@@ -15,6 +15,6 @@
 
     </head>
         <body style="background-color: #F2F2F2;">
-            nero Entraste como <%= request.getSession().getAttribute("idUsuario")%>
+            nero Entraste como <%= request.getSession().getAttribute("idusuario")%>
     </body>
 </html>

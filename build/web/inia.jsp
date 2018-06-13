@@ -14,7 +14,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
 
     </head>
-        <body style="background-color: #F2F2F2;">
-            admin Entraste como <%= request.getSession().getAttribute("idUsuario")%>
+    <body style="background-color: #F2F2F2;">
+            admin Entraste como <%= request.getSession().getAttribute("idusuario")%>       
     </body>
 </html>

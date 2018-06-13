@@ -11,11 +11,45 @@
         <title>Inicio</title>
         <!-- Como casi nunca tenemos internet en la escuela, mejor descargue bootstrap-->
         <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/styles.css">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/estiloinicli.css">
 
     </head>
-        <body style="background-color: #F2F2F2;">
-            liente Entraste como <%= request.getSession().getAttribute("idUsuario")%>
+    <body style="background-color: #F2F2F2;">
+        <nav id="nav">
+            <ul>
+              <li><a class="active" href="Juego">Realizar Pedido</a></li>
+              <li><a href="Historial">Consultar estado Pedido</a></li>
+            </ul>
+        </nav>
+            liente Entraste como <%= request.getSession().getAttribute("idusuario")%>
+            <!--cargamos el menu disponible de alimentos -->
+            <%    
+                try{
+                cConexion con=new cConexion();
+                con.conectar();
+               
+                ResultSet r=con.consulta("select * from platillo where disponible=1;");
+                
+                while(r.next()){
+                    //Retrieve by column name
+                    int id  = r.getInt("id");
+                    int age = r.getInt("age");
+                    String first = r.getString("first");
+                    String last = r.getString("last");
+
+                    //Display values
+                    System.out.print("ID: " + id);
+                    System.out.print(", Age: " + age);
+                    System.out.print(", First: " + first);
+                    System.out.println(", Last: " + last);
+                 }
+                 //STEP 6: Clean-up environment
+                 r.close();
+                 con.cerrarConexion();
+            
+            }catch(Exception e){
+                System.out.println("Error : "+e.getMessage());
+            }
+            %>
     </body>
 </html>
