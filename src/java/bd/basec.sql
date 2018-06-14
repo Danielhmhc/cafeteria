@@ -87,7 +87,6 @@ insert into platillo values(default,'Fruta picada', 15 , default);
 insert into platillo values(default,'aire', 5.1 , 0);
 
 call Login('danielhmh@gmail.com','1234');
-
 call Login()
 select * from usuario;
 select * from platillo where disponible=1;

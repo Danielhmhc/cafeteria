@@ -1,6 +1,8 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
+<%@page import="Logica.Platillo"%>
 <%@page session='true' %>
 <%@page contentType="text/html" pageEncoding="UTF-8" import="bd.cConexion"%>
 <!DOCTYPE html>
@@ -23,25 +25,20 @@
         </nav>
             liente Entraste como <%= request.getSession().getAttribute("idusuario")%>
             <!--cargamos el menu disponible de alimentos -->
-            <%    
+            <div id="menu">
+            <%  ArrayList <Platillo> menu= new ArrayList<Platillo>();  
                 try{
                 cConexion con=new cConexion();
                 con.conectar();
                
                 ResultSet r=con.consulta("select * from platillo where disponible=1;");
                 
+                int i=0;
                 while(r.next()){
-                    //Retrieve by column name
-                    int id  = r.getInt("id");
-                    int age = r.getInt("age");
-                    String first = r.getString("first");
-                    String last = r.getString("last");
-
-                    //Display values
-                    System.out.print("ID: " + id);
-                    System.out.print(", Age: " + age);
-                    System.out.print(", First: " + first);
-                    System.out.println(", Last: " + last);
+                    menu.add(new Platillo());
+                    menu.get(i).setNomplatillo(r.getString("nomplatillo"));
+                    menu.get(i).setCosto(r.getFloat("costo"));
+                    i++;
                  }
                  //STEP 6: Clean-up environment
                  r.close();
@@ -50,6 +47,29 @@
             }catch(Exception e){
                 System.out.println("Error : "+e.getMessage());
             }
-            %>
+             
+            for(int i=0;i<menu.size();i++){
+             %>
+             
+             <div class="Platillo" >
+                 <h2>Nombre: <%= menu.get(i).getNomplatillo()%></h2>
+                 <p>costo:<%= menu.get(i).getCosto()%> </p>    
+             </div>
+            <%}%>    
+            </div>
+            <form id="orden">
+                <h1>Seleccione su pedido</h1>
+                <label for="Platillo">Platillo :</label> <select name="platillos" >
+                   <% for(int i=0;i<menu.size();i++){
+                       
+                   %>
+                      <option value="<%=menu.get(i).getNomplatillo()%>" ><%=menu.get(i).getNomplatillo()%></option>
+                   <%}%>    
+                </select>
+                <input name="txtant" placeholder="Ej: 1"/>
+                <input id="btnagp" type="button" value="Agregar Pedido" onclick="Agregarped"/>
+                
+            </form>
+            
     </body>
 </html>
