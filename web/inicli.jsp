@@ -22,6 +22,7 @@
             <ul>
               <li><a class="active" href="Juego">Realizar Pedido</a></li>
               <li><a href="Historial">Consultar estado Pedido</a></li>
+              <li><a href="IngresarTarjeta.jsp">Agregar credito</a></li>
             </ul>
         </nav>
             liente Entraste como <%= request.getSession().getAttribute("idusuario")%>
