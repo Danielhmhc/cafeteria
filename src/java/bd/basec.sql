@@ -38,7 +38,7 @@ create table inventario(
 create table orden(
 	numorden int primary key auto_increment,
     idusuario int not null,
-    fecha date not null,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP,
     metpago varchar(20) not null,
     foreign key (idusuario) references usuario(idusuario)
 );
@@ -54,6 +54,11 @@ create table pedido(
     primary key(numorden,numpedido)
 );
 
+create table prueba(
+	#Id del usuario generado por nosotros
+    fe TIMESTAMP DEFAULT CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP
+);
+
 delimiter $
 #Proedimientos para la apliaion create procedure Login(in email varchar(100), in contra varchar(20)) 
 create procedure Login(in email varchar(100), in contra varchar(20)) 
@@ -66,6 +71,26 @@ begin
 		select -1 as idusuario;
 	end if;
 end $ 
+
+create procedure Obtcosto(in nombre varchar(30)) 
+begin 
+	declare existe int;
+    select count(*) into existe from platillo where nomplatillo = nombre;
+    if existe=1 then
+		select costo from platillo where nomplatillo = nombre;
+	else
+		select -1 as costo;
+	end if;
+end $ 
+
+create procedure insertarOrden(in idusuario int)
+begin
+    declare f timestamp;
+    select now() into f;
+	insert into orden values(default,idusuario,f,'Efectivo');
+    select numorden from orden where idusuario=idusuario and fecha = f;
+end $
+
 
 
 #Datos insertados para prueba direccionamiento (usuarios)
@@ -85,8 +110,18 @@ insert into platillo values(default,'Rebanada pizza', 16.50 , default);
 insert into platillo values(default,'Papas a la francesa', 12 , 0);
 insert into platillo values(default,'Fruta picada', 15 , default);
 insert into platillo values(default,'aire', 5.1 , 0);
+declare pu;
+insert into prueba values(1,);
+insert into orden values(default,3,default,'Efetivo');
+insert into pedido values(1,1,(select idplatillo from platillo where nomplatillo= 'Rebanada pizza'),2);
 
+#LLamada a proedimientos almaenados
 call Login('danielhmh@gmail.com','1234');
-call Login()
+call Obtcosto('Tacos Dorados');
+call insertarOrden(3);
 select * from usuario;
 select * from platillo where disponible=1;
+select * from orden;
+select * from prueba;
+select * from pedido;
+select now() into pu;

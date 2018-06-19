@@ -20,9 +20,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author Daniel
  */
-@WebServlet(name = "Agregarped", urlPatterns = {"/Agregarped"})
+@WebServlet(name = "RegistrarOrden", urlPatterns = {"/RegistrarOrden"})
 @MultipartConfig
-public class Agregarped extends HttpServlet {
+public class RegistrarOrden extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,41 +37,31 @@ public class Agregarped extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String nom = request.getParameter("platillos"); //atrapa el usuario
-            String antidad = request.getParameter("txtant");
+            HttpSession sesion = request.getSession();
+            ArrayList<Pedido> Orden= new ArrayList<Pedido>();
+            Orden=(ArrayList)sesion.getAttribute("Orden");
            
             try{
                 cConexion con=new cConexion();
                 con.conectar();
-               
-                ResultSet r=con.consulta("call Obtcosto('"+nom+"');");
                 
+                ResultSet r=con.consulta("call insertarOrden("+sesion.getAttribute("idusuario")+");");
+                r.first();
+                int norden=r.getInt("numorden");
+                int i;
+                for(i=0;i<Orden.size();i++){
+                    r=con.consulta("insert into pedido values("+(norden)+","+ (i+1) +",(select idplatillo from platillo where nomplatillo= '" +Orden.get(i).getNombre()  + "'),"+Orden.get(i).getCantidad() +");");
                 
-                if(r.first()){
-                    float id= r.getFloat("costo");
-                    if(id==-1){
-                        response.sendRedirect("inicli.jsp?r=Algo ocurrio duante el pedido, vuelva a intentarlo");
-                    }
-                    else{
-                        ArrayList<Pedido> Orden;
-                        HttpSession sesion = request.getSession();
-                        Orden=(ArrayList)sesion.getAttribute("Orden");
-                        if(Orden== null){
-                          Orden= new ArrayList<Pedido>();
-                         
-                        }
-                        Pedido patual=new Pedido(nom,Integer.parseInt(antidad),Integer.parseInt(antidad)* id); 
-                        Orden.add(patual);
-                        sesion.setAttribute("Orden",Orden);
-                        response.sendRedirect("inicli.jsp?r=Pedido Agregado exitosamente");
-                    }
-                }                
-                else{
-                    response.sendRedirect("inicli.jsp?r=Algo ocurrio duante el pedido, vuelva a intentarlo");
                 }
-            
+                
+                ArrayList<Pedido> OrdenN= new ArrayList<Pedido>();
+                sesion.setAttribute("Orden", OrdenN);
+                response.sendRedirect("inicli.jsp?r=orden registrada corretamente");
+             
             }catch(Exception e){
+                
                 System.out.println("Error : "+e.getMessage());
+                response.sendRedirect("inicli.jsp?r=o");
             }
         }
     }
@@ -117,3 +107,4 @@ public class Agregarped extends HttpServlet {
 
 }
     
+

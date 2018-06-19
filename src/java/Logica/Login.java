@@ -41,10 +41,8 @@ public class Login extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             String n1 = request.getParameter("txtcorreo"); //atrapa el usuario
-            String n2 = request.getParameter("txtpassword");                    
-            
-            
-            try{
+            String n2 = request.getParameter("txtpassword");                          
+        try{
                 cConexion con=new cConexion();
                 con.conectar();
                
@@ -77,7 +75,6 @@ public class Login extends HttpServlet {
             }
 
         }
-        
         
     }
 

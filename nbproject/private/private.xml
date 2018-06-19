@@ -4,8 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/src/java/Logica/Login.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/web/inicli.jsp</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/src/java/bd/cConexion.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/src/java/Logica/Cliente.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/src/java/Logica/Agregarped.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/src/java/Logica/RegistrarOrden.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/src/java/Logica/Pedido.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/Java/cafeteria/src/java/Logica/Platillo.java</file>
         </group>
     </open-files>
 </project-private>

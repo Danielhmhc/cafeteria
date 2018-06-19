@@ -3,6 +3,7 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Logica.Platillo"%>
+<%@page import="Logica.Pedido"%>
 <%@page session='true' %>
 <%@page contentType="text/html" pageEncoding="UTF-8" import="bd.cConexion"%>
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
         <!-- Como casi nunca tenemos internet en la escuela, mejor descargue bootstrap-->
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/estiloinicli.css">
-
+        
     </head>
     <body style="background-color: #F2F2F2;">
         <nav id="nav">
@@ -26,7 +27,8 @@
             liente Entraste como <%= request.getSession().getAttribute("idusuario")%>
             <!--cargamos el menu disponible de alimentos -->
             <div id="menu">
-            <%  ArrayList <Platillo> menu= new ArrayList<Platillo>();  
+            <%  ArrayList <Platillo> menu= new ArrayList<Platillo>();
+                
                 try{
                 cConexion con=new cConexion();
                 con.conectar();
@@ -57,9 +59,9 @@
              </div>
             <%}%>    
             </div>
-            <form id="orden">
+            <form id="orden" action="Agregarped" method="post">
                 <h1>Seleccione su pedido</h1>
-                <label for="Platillo">Platillo :</label> <select name="platillos" >
+                <label for="Platillo">Platillo :</label> <select name="platillos" onchange="cambcosto()">
                    <% for(int i=0;i<menu.size();i++){
                        
                    %>
@@ -67,9 +69,39 @@
                    <%}%>    
                 </select>
                 <input name="txtant" placeholder="Ej: 1"/>
-                <input id="btnagp" type="button" value="Agregar Pedido" onclick="Agregarped"/>
+                <input id="btnagp" type="submit" value="Agregar Pedido" />
                 
             </form>
-            
+                <div id="confirmar">
+                    <% 
+                        
+                    ArrayList<Pedido> Orden;
+                    HttpSession sesion = request.getSession();
+                    Orden=(ArrayList)sesion.getAttribute("Orden");
+                    int i=0;
+                    if(Orden==null){
+                        ;
+                    }
+                    else{
+                        for(i=0;i<Orden.size();i++){
+                        %>
+                        <div class="pedido">
+                            <label for="Platillop">Platillo: <%= Orden.get(i).getNombre()%></label>
+                            <label for="antidad">Cantidad: <%= Orden.get(i).getCantidad()%> </label>
+                            <label for="ostoT">Costo Total: <%= Orden.get(i).getCostot()%> </label>
+                        </div>
+                         <%    
+                        }
+                    }
+                    
+
+                    
+                    %>
+                    <form id="onfirmaro" action="RegistrarOrden" method="post">
+                        <input type="submit" value="Realizar Orden"  />
+                        
+                    </form>
+                </div>     
     </body>
+    
 </html>
