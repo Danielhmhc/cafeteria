@@ -8,27 +8,71 @@ and open the template in the editor.
     <head>
         <title>Principal</title>
         <meta charset="UTF-8">
+        <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url("img/background.jpg");
+
+            /* Full height */
+            height: 100%; 
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .bg .content {
+            background: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+            color: #f1f1f1;
+            margin: auto;
+            width: 35%;
+            padding: 20px;
+        }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <header id="top" class="header">
-                <div class="text-vertical-center">
-                    <h3 style="color: #293641">Bienvenido al sistema de administracion de la cafeteria,</h3>
-                    <br>
-                    <a href="#" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#login-modal">Inicia Sesion</a>
-                    <a href="Registro.jsp" class="btn btn-dark btn-lg">Registrate</a>
-
+        <div class="bg">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="#">CAFESCOM</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li class="active"><h3 style="color: #ffffff">Bienvenido al sistema de administracion de la cafeteria</h3></li>
+                    
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#login-modal">Inicia Sesion</a></li>
+                    <li><a href="Registro.jsp" class="btn btn-dark btn-lg">Registrate</a></li>
+                  </ul>
                 </div>
-        </header>
- 
-        <img src="logo.png"/>
-        <p>Por favor ingrese sus datos</p>
-        <form action="Login" method="post">
-            <input type="text" name="txtcorreo" placeholder="Ingrese su correo" required/>
-            <input type="password" name="txtpassword" placeholder="Inicie su contraseña" required/>
-            <input type="submit" name="login" value="Login"/>
+              </nav>
+        <div class="content">
+            <img src="img/logo.png"/><br>
+            <p style="color: #ffffff">Por favor ingrese sus datos</p>
+            <form action="Login" method="post">  
+                <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" placeholder="Ingrese su correo" name="txtcorreo" required>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" placeholder="Ingrese su contraseña" name="txtpassword" required>
+              </div>
+              <button type="submit" class="btn btn-default">Ingresar</button>
+            </form>
             
-        </form>
+          </div>
         
+        
+        </div>
     </body>
 </html>
